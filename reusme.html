@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medhat Ullah's Resume</title>
+    <!-- Import Google Fonts: Cinzel for headings and IBM Plex Mono for body -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <style>
+        /* Base styles and variables for Light Theme */
+        :root {
+            --primary-font: 'Cinzel', serif;
+            --secondary-font: 'IBM Plex Mono', monospace;
+            --text-color: #1a1a1a;
+            --secondary-text-color: #6b7280;
+            --background-color: #ffffff;
+            --accent-color: #000000;
+            --hover-color: #ffffff;
+            --hover-bg-color: #000000;
+            --border-color: #e5e7eb;
+        }
+
+        /* Dark theme variables, applied when the body has the 'dark-theme' class */
+        body.dark-theme {
+            --text-color: #e5e7eb;
+            --secondary-text-color: #9ca3af;
+            --background-color: #1a1a1a;
+            --accent-color: #f3f4f6;
+            --hover-color: #000000;
+            --hover-bg-color: #ffffff;
+            --border-color: #4b5563;
+        }
+
+        /* Basic reset and typography */
+        body {
+            font-family: var(--secondary-font);
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            cursor: none;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--primary-font);
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* Custom Mouse Cursor */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(107, 114, 128, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.active {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main content layout */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header and Navigation (New for resume) */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background-color: var(--background-color);
+            z-index: 100;
+            transition: background-color 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--accent-color);
+        }
+
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .logo-image:hover {
+            transform: scale(1.1);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: var(--primary-font);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover, .nav-links .theme-toggle:hover {
+            background-color: var(--hover-bg-color);
+            color: var(--hover-color);
+        }
+        
+        .nav-links .theme-toggle {
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-links .theme-toggle svg {
+            fill: currentColor;
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+
+
+        /* Skills Section */
+        .skills-section {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .skills-section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            list-style-type: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skills-list li {
+            background-color: #f3f4f6;
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            position: relative; /* Needed for pseudo-element */
+            cursor: pointer;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        body.dark-theme .skills-list li {
+             background-color: #2e2e2e;
+             color: var(--text-color);
+        }
+
+        /* Hover effect for skills */
+        .skills-list li:hover {
+            color: var(--accent-color);
+            background-color: transparent;
+        }
+
+        /* Underline effect for skills on hover */
+        .skills-list li::after {
+            content: '';
+            position: absolute;
+            left: 50%; /* Center the underline */
+            bottom: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .skills-list li:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Courses Section */
+        .courses-section {
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .courses-section h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .courses-list {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .course-item-logo {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        
+        body.dark-theme .course-item-logo {
+            background-color: #2e2e2e;
+        }
+
+        .course-item-logo.mit {
+            background-color: #a51d1d;
+        }
+        
+        .course-item-logo.mit svg {
+            fill: #ffffff;
+        }
+
+        .course-item-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .course-info {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .course-info h3 {
+            font-size: 1.25rem;
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        .course-info p {
+            font-family: var(--secondary-font);
+            font-size: 1rem;
+            color: var(--secondary-text-color);
+            margin: 0;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Underline effect for courses on hover */
+        .course-info h3::after,
+        .course-info p::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .course-item:hover .course-info h3::after,
+        .course-item:hover .course-info p::after {
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--secondary-text-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .skills-section h2, .courses-section h2 {
+                font-size: 2.5rem;
+            }
+            .course-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="container">
+        <!-- Header with Navigation -->
+        <header>
+            <!-- Logo with Image -->
+            <a href="index.html" class="logo-container interactive-element">
+                <img src="Cat bf.jfif" alt="Portfolio Logo" class="logo-image">
+                <span class="logo-text">Medhat</span>
+            </a>
+            <nav class="nav-links">
+                <!-- Theme Toggle Button -->
+                <div id="theme-toggle" class="theme-toggle interactive-element">
+                    <!-- Sun Icon (initially visible) -->
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <!-- Moon Icon (initially hidden) -->
+                    <svg id="moon-icon" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <!-- Skills Section -->
+            <section class="skills-section">
+                <h2>Technical Skills</h2>
+                <ul class="skills-list">
+                    <li>Applied CFD</li>
+                    <li>Deep Learning</li>
+                    <li>Self-Driving Car Engineering</li>
+                    <li>Machine Learning</li>
+                    <li>Turbulence Modeling</li>
+                    <li>C++</li>
+                    <li>GPU programming</li>
+                    <li>Computational Plasma physics</li>
+                    <li>Theory-Trained Neural Nets</li>
+                    <li>Computer Vision Engineering</li>
+                    
+                </ul>
+            </section>
+
+            <!-- Courses Section -->
+            <section class="courses-section">
+                <h2>Courses & Certifications</h2>
+                <ul class="courses-list">
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="siemens.jpg" alt="Siemens Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Applied Computational Fluid dynamics</h3>
+                            <p>siemens</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo mit">
+                             <img src="miit.png" alt="MIT Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Relativistic Quantum Mechanics</h3>
+                            <p>MIT</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="hku.png" alt="Hong Kong University Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Software Engineering: Implementation and Testing</h3>
+                            <p>Hong Kong University</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="boulder.png" alt="Colorado Boulder Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Software Design as an Abstraction</h3>
+                            <p>Colorado Boulder</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="mathworks.gif" alt="Mathworks Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Image processing for Engineers and Scientist</h3>
+                            <p>Mathworks</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="gAI.jpg" alt="Google Quantum AI Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Hands-on quantum error correction with Google Quantum AI</h3>
+                            <p>Google Quantum AI</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="nptel.png" alt="Nptel Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Introduction to Computational Science and Engineering</h3>
+                            <p>Nptel</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="miit.png" alt="Massachusetts Institute of Technology Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Derivatives Markets: Advanced Modeling and Strategies</h3>
+                            <p>Massachusetts Institute of Technology</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="coursera.png" alt="Coursera Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Simple Linear Regression for the Absolute Beginner</h3>
+                            <p>Coursera</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="ubc.png" alt="University of British Columbia Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Introduction to Quantum Mechanics</h3>
+                            <p>University of British Columbia</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="epfl.png" alt="École Polytechnique Fédérale de Lausanne Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Computational Neuroscience: Neuronal Dynamics of Cognition</h3>
+                            <p>École Polytechnique Fédérale de Lausanne</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="purdue.jpg" alt="University of Purdue Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Introduction to Scientific Machine Learning</h3>
+                            <p>University of Purdue</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="waseda.png" alt="Waseda University Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>The Black-Scholes Model: For Proprietary Trading</h3>
+                            <p>Waseda University</p>
+                        </div>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="edx.png" alt="Edx Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Foundations of Predictive Analytics: Regression and Classification</h3>
+                            <p>Edx</p>
+                        </div>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="northwestern.png" alt="Northwestern University Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Computational Neuroscience</h3>
+                            <p>Northwestern University</p>
+                        </div>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="osaka.jfif" alt="Osaka University Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Introduction to Computational Materials Design</h3>
+                            <p>Osaka University</p>
+                        </div>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="cproject.png" alt="Coursera Project Network Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>CFD Simulation Through a Centrifugal Pump</h3>
+                            <p>Coursera Project Network</p>
+                        </div>
+                         <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="tudelft.png" alt="Coursera Project Network Logo">
+                        </div>
+                        <div class="course-info">
+                            <h3>Machine Learning for Semiconductor Quantum Devices</h3>
+                            <p>TuDelft University/p>
+                        </div>
+                </ul>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 Medhat :P</p>
+        </footer>
+    </div>
+    <!-- JavaScript for the custom cursor and theme toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const interactiveElements = document.querySelectorAll('.interactive-element');
+            const themeToggle = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            const body = document.body;
+
+            // Check for saved theme in localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-theme');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+
+            // Update cursor position
+            document.addEventListener('mousemove', e => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
+
+            // Handle hover states for interactive elements
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('active');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('active');
+                });
+            });
+
+            // Handle theme toggle click
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-theme');
+                if (body.classList.contains('dark-theme')) {
+                    localStorage.setItem('theme', 'dark');
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

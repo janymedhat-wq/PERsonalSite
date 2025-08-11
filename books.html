@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medhat Ullah's Books</title>
+    <!-- Import Google Fonts: PT Serif for headings, IBM Plex Mono for body, Pacifico for the name, and Cinzel for a dramatic heading font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Pacifico&family=Cinzel:wght@400;700&display=swap">
+    <style>
+        /* Base styles and variables for Light Theme */
+        :root {
+            --primary-font: 'Cinzel', serif;
+            --secondary-font: 'IBM Plex Mono', monospace;
+            --name-font: 'Pacifico', cursive;
+            --text-color: #1a1a1a;
+            --secondary-text-color: #6b7280;
+            --background-color: #ffffff;
+            --accent-color: #000000;
+            --hover-color: #ffffff; /* Text color on hover */
+            --hover-bg-color: #000000; /* Background color on hover */
+            --border-color: #e5e7eb;
+            --card-bg-color: #f3f4f6;
+            --card-hover-bg-color: #e5e7eb;
+        }
+
+        /* Dark theme variables */
+        body.dark-theme {
+            --text-color: #e5e7eb;
+            --secondary-text-color: #9ca3af;
+            --background-color: #1a1a1a;
+            --accent-color: #f3f4f6;
+            --hover-color: #000000;
+            --hover-bg-color: #ffffff;
+            --border-color: #4b5563;
+            --card-bg-color: #2d3748;
+            --card-hover-bg-color: #4a5568;
+        }
+
+        /* Basic reset and typography */
+        body {
+            font-family: var(--secondary-font);
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            cursor: none;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--primary-font);
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        /* Main content layout */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Custom Mouse Cursor */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(107, 114, 128, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        .cursor.active {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        @media (pointer: coarse) {
+            .cursor {
+                display: none;
+            }
+        }
+
+        /* Header and Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background-color: var(--background-color);
+            z-index: 100;
+            transition: background-color 0.3s ease, border-bottom 0.3s ease;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--accent-color);
+        }
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-color);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .logo-image:hover {
+            transform: scale(1.1);
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: var(--primary-font);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+        .nav-links a, .nav-links .nav-link-item {
+            padding: 0.5rem 0.75rem;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        /* Highlight the active link */
+        .nav-links .active-link {
+            background-color: var(--hover-bg-color);
+            color: var(--hover-color);
+        }
+        .nav-links a:hover, .nav-links .theme-toggle:hover {
+            background-color: var(--hover-bg-color);
+            color: var(--hover-color);
+        }
+        .nav-links .theme-toggle {
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .nav-links .theme-toggle svg {
+            fill: currentColor;
+            width: 1.5rem;
+            height: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .nav-links .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+        .nav-links .separator {
+            color: var(--secondary-text-color);
+            font-weight: 400;
+        }
+        .github-icon {
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+
+        /* Books Section */
+        .books-section {
+            padding: 6rem 0;
+            text-align: center;
+        }
+        .books-section h1 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+        }
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .book-card {
+            background-color: var(--card-bg-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .book-image {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .book-title {
+            font-family: var(--primary-font);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .book-author {
+            font-size: 1rem;
+            color: var(--secondary-text-color);
+            margin-top: 0.25rem;
+            margin-bottom: 1rem;
+        }
+        .book-description {
+            font-size: 0.9rem;
+            color: var(--secondary-text-color);
+            text-align: left;
+            flex-grow: 1;
+        }
+
+        /* Footer */
+        footer {
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--secondary-text-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsive adjustments for screens up to 768px wide */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Stack logo and nav vertically */
+                align-items: center;
+            }
+            .nav-links {
+                flex-wrap: wrap; /* Allow nav links to wrap */
+                justify-content: center;
+                margin-top: 1rem;
+                gap: 0.5rem; /* Reduced gap between links */
+            }
+            .nav-links .separator {
+                display: none; /* Hide separators on small screens */
+            }
+            .books-section {
+                padding: 4rem 0;
+            }
+            .books-section h1 {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+            .books-grid {
+                grid-template-columns: 1fr; /* Stack book cards on top of each other */
+            }
+            .book-card {
+                padding: 1rem;
+            }
+        }
+
+        /* Responsive adjustments for screens up to 480px wide */
+        @media (max-width: 480px) {
+            .nav-links a, .nav-links .nav-link-item {
+                font-size: 1rem;
+                padding: 0.3rem 0.6rem;
+            }
+            .books-section h1 {
+                font-size: 2rem;
+            }
+            .book-title {
+                font-size: 1.25rem;
+            }
+            .book-author {
+                font-size: 0.9rem;
+            }
+            .book-description {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="container">
+        <!-- Header with Navigation -->
+        <header>
+            <a href="index.html" class="logo-container interactive-element">
+                <img src="Cat bf.jfif" alt="Portfolio Logo" class="logo-image">
+                <span class="logo-text">Medhat</span>
+            </a>
+            <nav class="nav-links">
+                <!-- Theme Toggle Button -->
+                <div id="theme-toggle" class="theme-toggle interactive-element">
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg id="moon-icon" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+                <a href="index.html#projects" class="nav-link-item interactive-element">Projects</a>
+                <span class="separator">|</span>
+                <a href="books.html" class="nav-link-item interactive-element active-link">Books</a>
+                <span class="separator">|</span>
+                <a href="reusme.html" class="nav-link-item interactive-element">Resume</a>
+                <span class="separator">|</span>
+                <a href="https://github.com/Medhat-17" class="nav-link-item interactive-element" target="_blank">
+                    <svg class="github-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.111.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.043-1.612-4.043-1.612-.546-1.387-1.332-1.758-1.332-1.758-1.088-.745.083-.73.083-.73 1.205.085 1.838 1.238 1.838 1.238 1.07 1.835 2.809 1.305 3.492.997.108-.775.42-1.305.762-1.605-2.665-.3-5.465-1.332-5.465-5.93 0-1.31.465-2.385 1.235-3.22-.124-.302-.535-1.52.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.046.138 3.003.404 2.29-1.552 3.298-1.23 3.298-1.23.653 1.656.242 2.874.118 3.176.77.835 1.234 1.91 1.234 3.22 0 4.61-2.804 5.626-5.474 5.923.432.373.815 1.11.815 2.24 0 1.616-.015 2.915-.015 3.314 0 .319.217.693.825.575C20.565 21.802 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd"/>
+                    </svg>
+                    GitHub
+                </a>
+            </nav>
+        </header>
+
+        <!-- Books Section -->
+        <section id="books" class="books-section">
+            <h1>Favorite Books</h1>
+            <div class="books-grid">
+                <div class="book-card interactive-element">
+                    <img src="swastika.jpg" alt="The Scourge of the Swastika Book Cover" class="book-image">
+                    <h3 class="book-title">The Scourge of the Swastika</h3>
+                    <p class="book-author">by Edward Russell</p>
+                    <p class="book-description">A powerful and grim account of the atrocities committed by the Nazis during World War II, based on the author's work as a prosecutor at the Nuremberg trials.</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="bhagat.jpg" alt="Why I Am an Atheist Book Cover" class="book-image">
+                    <h3 class="book-title">Why I Am An Atheist: An Autobiographical Discourse</h3>
+                    <p class="book-author">by Bhagat Singh</p>
+                    <p class="book-description">A compelling essay by the Indian revolutionary, Bhagat Singh, outlining his philosophical and rational reasons for his atheism.</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="shoedog.jpg" alt="Shoe Dog Book Cover" class="book-image">
+                    <h3 class="book-title">Shoe Dog</h3>
+                    <p class="book-author">by Phil Knight</p>
+                    <p class="book-description">A candid and compelling memoir by the founder of Nike, chronicling the company's early struggles and its rise to global dominance. A true story about passion, perseverance, and the spirit of entrepreneurship.</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="0t1.jpg" alt="Zero To One Book Cover" class="book-image">
+                    <h3 class="book-title">Zero To One</h3>
+                    <p class="book-author">by Peter Thiel</p>
+                    <p class="book-description">Offers a new perspective on innovation and business, arguing that true progress comes from creating new things ("zero to one"), not from copying others ("one to n"). An essential read for anyone interested in building the future.</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="mmtg.jpg" alt="Money Master the Game Book Cover" class="book-image">
+                    <h3 class="book-title">Money Master the Game</h3>
+                    <p class="book-author">by Tony Robbins</p>
+                    <p class="book-description">A comprehensive guide to financial freedom, providing a seven-step blueprint to master your finances and secure your future. It distills complex financial concepts into actionable advice for everyone.</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="ssapp.jpg" alt="Sapiens Book Cover" class="book-image">
+                    <h3 class="book-title">Sapiens: A Brief History of Humankind</h3>
+                    <p class="book-author">by Yuval Noah Harari</p>
+                    <p class="book-description">A sweeping history of the human race, from the emergence of Homo sapiens in Africa to the radical and sometimes destructive revolutions of our modern era. This book challenges our core assumptions about what it means to be human.</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="byge.jpg" alt="Beyond Good and Evil Book Cover" class="book-image">
+                    <h3 class="book-title">Beyond Good and Evil</h3>
+                    <p class="book-author">by Friedrich Nietzsche</p>
+                    <p class="book-description">Nietzsche's radical and provocative philosophical work that critiques traditional morality and philosophy, encouraging a "revaluation of all values." It explores the origins of moral prejudices and the nature of the "will to power."</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="critique.jpg" alt="Critique of Pure Reason Book Cover" class="book-image">
+                    <h3 class="book-title">Critique of Pure Reason</h3>
+                    <p class="book-author">by Immanuel Kant</p>
+                    <p class="book-description">One of the most influential works in the history of philosophy, in which Kant seeks to determine the limits and scope of human knowledge and reason. A foundational text in metaphysics and epistemology.</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="tsz.jfif" alt="Thus Spoke Zarathustra Book Cover" class="book-image">
+                    <h3 class="book-title">Thus Spoke Zarathustra</h3>
+                    <p class="book-author">by Friedrich Nietzsche</p>
+                    <p class="book-description">A philosophical novel that presents Nietzsche's key ideas, including the "Übermensch" (or "overman") and the doctrine of "eternal recurrence," through the fictional character of Zarathustra. A poetic and powerful work of philosophy.</p>
+                </div>
+                <div class="book-card interactive-element">
+                    <img src="bs.jpg" alt="Bullshit Jobs Book Cover" class="book-image">
+                    <h3 class="book-title">Bullshit Jobs: A Theory</h3>
+                    <p class="book-author">by David Graeber</p>
+                    <p class="book-description">An anthropological critique of modern work, arguing that many jobs are pointless and contribute nothing to society, creating a sense of spiritual violence and unhappiness among workers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 Medhat :P</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript for the custom cursor and theme toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const interactiveElements = document.querySelectorAll('.interactive-element');
+            const themeToggle = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            const body = document.body;
+
+            // Check for saved theme in localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-theme');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+
+            // Update cursor position
+            document.addEventListener('mousemove', e => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
+
+            // Handle hover states for interactive elements
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('active');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('active');
+                });
+            });
+
+            // Handle theme toggle click
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-theme');
+                if (body.classList.contains('dark-theme')) {
+                    localStorage.setItem('theme', 'dark');
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
